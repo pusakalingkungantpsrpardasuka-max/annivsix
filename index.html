@@ -354,12 +354,12 @@
       letter-spacing: -0.04em;
       margin-bottom: 16px;
       color: #9b3667;
-      text-shadow: 0 6px 20px rgba(255, 202, 233, 0.25);
       background: linear-gradient(135deg, #ff8ac7, #ffd4ea);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
       animation: softGlow 3.2s ease-in-out infinite;
+      text-shadow: none;
     }
 
     .intro-text,
@@ -576,6 +576,20 @@
       animation: bloomPop 5.2s ease-in-out infinite;
     }
 
+    .bloom-lily {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 25%, #fff9f9, #ffe4f0 45%, #ffd4e8 100%);
+      box-shadow: 0 14px 28px rgba(255, 190, 208, 0.16);
+      display: grid;
+      place-items: center;
+      font-size: 0.88rem;
+      color: #b34979;
+      border: 1px solid rgba(255, 198, 214, 0.9);
+      animation: bloomPop 5s ease-in-out infinite;
+    }
+
     @keyframes bloomPop {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.12); }
@@ -701,15 +715,17 @@
   </section>
 
   <section class="page" id="galleryPage">
+    <div class="hero"> gallery-page" id="galleryPage">
     <div class="hero">
       <div class="section-card">
         <div class="section-title">Surprise Buket Bunga</div>
-        <p class="caption">Buket ini mewakili harum cintaku untukmu, Zaincucayang. Setiap kelopak adalah pelukan lembut dari aku untuk kamu.</p>
+        <p class="caption">Buket ini mewakili harum cintaku untukmu, Zaincucayang. Di dalamnya ada lily cantik yang memberi sentuhan elegan dan lembut.</p>
       </div>
       <div class="flower-bouquet" aria-hidden="true">
         <div class="bloom bloom-large">💐</div>
-        <div class="bloom">🌹</div>
-        <div class="bloom">🌸</div>
+        <div class="bloom">🌷</div>
+        <div class="bloom bloom-lily">🌸</div>
+        <div class="bloom">🌺</div>
       </div>
       <div class="surprise-bubble" id="surpriseBubble">Buket bunga ini adalah kejutan kecil penuh cinta, kehangatan, dan janji setia. Terima kasih sudah membuat hidupku lebih berwarna setiap hari.</div>
       <div style="margin-top: 20px; display:flex; justify-content:center;"><button class="button-heart" id="nextToMessage">Next</button></div>
