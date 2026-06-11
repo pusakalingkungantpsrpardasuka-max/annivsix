@@ -487,51 +487,6 @@
       50% { border-color: rgba(129, 46, 86, 0.75); }
     }
 
-    .gallery {
-      display: grid;
-      gap: 22px;
-      justify-items: center;
-      margin-top: 14px;
-    }
-
-    .slideshow {
-      position: relative;
-      width: min(680px, 100%);
-      max-width: 100%;
-      min-height: 320px;
-      border-radius: 32px;
-      overflow: hidden;
-      background: linear-gradient(180deg, #fff8fb 0%, #ffeaf3 100%);
-      border: 1px solid rgba(255, 185, 210, 0.7);
-      box-shadow: 0 20px 45px rgba(235, 144, 197, 0.16);
-    }
-
-    .slide {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      transition: opacity 0.9s ease, transform 0.9s ease;
-      transform: scale(0.98) translateY(10px);
-    }
-
-    .slide.active {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-
-    .slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.9s ease;
-    }
-
-    .slide.empty img {
-      object-fit: contain;
-      filter: contrast(0.95) saturate(1.2);
-    }
-
     .flower-bouquet {
       display: grid;
       gap: 18px;
@@ -787,6 +742,10 @@
       <div class="section-title">Penutup</div>
       <p class="section-text">Terima kasih telah menjadi bagian terindah dalam hidupku. Happy 6 Month Anniversary, Zaincucayang. Aku cinta kamu lebih dari kata-kata, dan aku berjanji akan selalu jaga setiap momen manis kita bersama.</p>
       <p class="section-text">Semoga setiap hari kita selalu dipenuhi kasih sayang, tawa hangat, dan pelukan yang membuat hati kita semakin erat.</p>
+      <p class="footer-note">Dari: <strong>Putri Pretty</strong></p>
+      <div style="margin-top: 18px; display:flex; justify-content:center;"><button class="button-heart" id="restartButton">Buka Lagi</button></div>
+    </div>
+  </section>
 
   <script>
     const pageIds = ['welcomePage', 'cardPage', 'galleryPage', 'messagePage', 'specialPage', 'romanticPage', 'closingPage'];
@@ -804,12 +763,6 @@
     const nameTyping = document.getElementById('nameTyping');
     const cardText = document.getElementById('cardText');
     const stage = document.querySelector('.stage');
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    const dotContainer = document.getElementById('dotContainer');
-    const slideTexts = [
-      'Momen manis bersama'
-    ];
-    let slideIndex = 0;
     let typingDone = false;
     const heartCount = 14;
 
@@ -848,11 +801,9 @@
     restartButton.addEventListener('click', () => {
       envelope.classList.remove('open');
       showPage(0);
-      slideIndex = 0;
-      updateSlide(0);
-      musicToggle.textContent = 'Play';
-      bgMusic.pause();
-      bgMusic.currentTime = 0;
+      typingDone = false;
+      nameTyping.textContent = '';
+      cardText.textContent = '';
     });
 
 
@@ -886,26 +837,6 @@
           clearInterval(textInterval);
         }
       }, 20);
-    }
-
-    function createDots() {
-      dotContainer.innerHTML = '';
-      slides.forEach((_, idx) => {
-        const dot = document.createElement('div');
-        dot.className = 'dot' + (idx === 0 ? ' active' : '');
-        dot.addEventListener('click', () => { updateSlide(idx); });
-        dotContainer.appendChild(dot);
-      });
-    }
-
-    function updateSlide(index) {
-      slides.forEach((slide, idx) => {
-        slide.classList.toggle('active', idx === index);
-      });
-      dotContainer.querySelectorAll('.dot').forEach((dot, idx) => {
-        dot.classList.toggle('active', idx === index);
-      });
-      slideIndex = index;
     }
 
     const surpriseBubble = document.getElementById('surpriseBubble');
