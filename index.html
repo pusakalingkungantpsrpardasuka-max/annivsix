@@ -354,11 +354,12 @@
       letter-spacing: -0.04em;
       margin-bottom: 16px;
       color: #9b3667;
-      text-shadow: 0 6px 20px rgba(255, 202, 233, 0.55);
+      text-shadow: 0 6px 20px rgba(255, 202, 233, 0.25);
       background: linear-gradient(135deg, #ff8ac7, #ffd4ea);
-      
+      background-clip: text;
+      -webkit-background-clip: text;
       color: transparent;
-      animation: shimmer 2.8s ease-in-out infinite;
+      animation: softGlow 3.2s ease-in-out infinite;
     }
 
     .intro-text,
@@ -637,9 +638,9 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    @keyframes shimmer {
-      0%, 100% { background-position: -200% 0; }
-      50% { background-position: 200% 0; }
+    @keyframes softGlow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.97; transform: scale(1.01); }
     }
 
     @keyframes softPop {
