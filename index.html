@@ -554,50 +554,30 @@
     .surprise-bubble {
       margin: 18px auto 0;
       max-width: 640px;
-      padding: 18px 26px;
+      padding: 18px 28px;
       border-radius: 999px;
-      background: linear-gradient(135deg, rgba(255, 228, 240, 0.96), rgba(255, 247, 250, 0.96));
-      border: 1px solid rgba(255, 182, 210, 0.92);
-      color: #9f4c7d;
+      background: linear-gradient(135deg, rgba(255, 236, 245, 0.98), rgba(255, 247, 250, 0.98));
+      border: 1px solid rgba(255, 187, 215, 0.92);
+      color: #96436d;
       font-size: 1rem;
-      box-shadow: 0 24px 52px rgba(255, 184, 214, 0.18);
+      box-shadow: 0 24px 58px rgba(255, 189, 220, 0.14);
       animation: floatUp 5.4s ease-in-out infinite;
       text-align: center;
       line-height: 1.7;
+      transform-origin: center;
     }
 
     .bloom {
-      animation: bloomPop 4.5s ease-in-out infinite;
+      animation: bloomPop 4.8s ease-in-out infinite;
     }
 
     .bloom-large {
-      animation: bloomPop 5s ease-in-out infinite;
+      animation: bloomPop 5.2s ease-in-out infinite;
     }
 
     @keyframes bloomPop {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    .progress-dots {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.55);
-      border: 1px solid rgba(255, 111, 164, 0.6);
-      transition: transform 0.25s ease, background 0.25s ease;
-    }
-
-    .dot.active {
-      background: #ff7bb3;
-      transform: scale(1.2);
+      50% { transform: scale(1.12); }
     }
 
     .section-card {
@@ -609,27 +589,23 @@
       padding: 20px 0;
     }
 
-    .section-title {
-      font-size: clamp(2rem, 5vw, 2.6rem);
-      color: #963a71;
-      margin-bottom: 6px;
-    }
-
     .pill {
       display: inline-flex;
       align-items: center;
-      background: rgba(255, 233, 246, 0.98);
+      background: rgba(255, 237, 244, 0.98);
       padding: 10px 16px;
       border-radius: 999px;
       font-size: 0.95rem;
       color: #8c4770;
-      border: 1px solid rgba(255, 194, 219, 0.85);
+      border: 1px solid rgba(255, 194, 219, 0.92);
       width: fit-content;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
     }
 
     .caption {
       font-size: 0.95rem;
       color: #7a4a69;
+      line-height: 1.7;
     }
 
     .footer-note {
@@ -638,44 +614,18 @@
       text-align: center;
     }
 
-
-    .music-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, #ff9ddd, #ff7ab4);
-      color: white;
-      font-size: 1.25rem;
-      box-shadow: 0 12px 26px rgba(255, 122, 186, 0.24);
+    .hero.card {
+      animation: softPop 18s ease-in-out infinite;
     }
 
-    .audio-panel button {
-      border: none;
-      background: #ff7dc0;
-      border-radius: 999px;
-      color: white;
-      padding: 10px 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      box-shadow: 0 12px 24px rgba(255, 120, 176, 0.24);
-    }
-
-    .audio-panel button:hover {
-      transform: translateY(-2px);
+    @keyframes softPop {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
     }
 
     @media (max-width: 600px) {
       body {
         padding-top: 64px;
-      }
-
-      .audio-panel {
-        top: auto;
-        bottom: 18px;
-        right: 18px;
       }
 
       .envelope { height: 200px; }
@@ -726,7 +676,7 @@
     <div class="hero">
       <div style="font-size:0.98rem;color:#9f4f82;margin-bottom:10px;">Selamat datang, Zaincucayang</div>
       <h1 class="intro-title">Surat Cinta untuk Anniversary 6 Month</h1>
-      <p class="intro-text">Dari: <strong>Putri Pretty</strong>. Yuk klik amplopnya, ada surprise manis penuh cinta, lucu, gemas, dan estetik khusus untuk kamu.</p>
+      <p class="intro-text cute-subtitle">Dari: <strong>Putri Pretty</strong>. Hadiah ini untuk kamu, penuh cinta manis, gemas, dan hangat sekali. Ayo buka amplopnya dan rasakan kejutan lembutnya.</p>
       <div class="envelope-wrap" id="envelopeButton" aria-label="Klik untuk membuka amplop">
         <div class="envelope" id="envelope">
           <div class="flap"></div>
@@ -753,7 +703,7 @@
     <div class="hero">
       <div class="section-card">
         <div class="section-title">Surprise Buket Bunga</div>
-        <p class="caption">Keindahan bunga ini adalah simbol kasih sayangku padamu. Semoga setiap kelopak menggambarkan betapa berharganya kamu di hatiku.</p>
+        <p class="caption">Buket ini mewakili harum cintaku untukmu, Zaincucayang. Setiap kelopak adalah pelukan lembut dari aku untuk kamu.</p>
       </div>
       <div class="flower-bouquet" aria-hidden="true">
         <div class="bloom bloom-large">💐</div>
@@ -770,11 +720,11 @@
       <div class="section-title">Kesan, Pesan, dan Harapan</div>
       <div class="section-card">
         <div class="pill">Kesan</div>
-        <p class="section-text">Selama 6 bulan bersama, aku merasa sangat bahagia karena memiliki seseorang sebaik kamu. Terima kasih sudah menjadi tempat pulang, tempat bercerita, dan orang yang selalu membuat hari-hariku lebih berwarna.</p>
+        <p class="section-text">Selama 6 bulan bersama, setiap detik terasa istimewa karena kamu ada. Kamu membuat hatiku berdebar manis dan hari-hariku jadi penuh pelangi.</p>
         <div class="pill">Pesan</div>
-        <p class="section-text">Tetap jadi Zain yang aku kenal yaa. Jangan lupa jaga kesehatan, jangan terlalu capek, dan tetap semangat mengejar semua impianmu.</p>
+        <p class="section-text">Tetap jadi Zain yang paling spesial di hidupku. Istirahat yang cukup, tetap semangat, dan terus ingat kalau aku selalu sayang padamu.</p>
         <div class="pill">Harapan</div>
-        <p class="section-text">Semoga hubungan kita semakin kuat, penuh kepercayaan, saling memahami, dan semoga kita bisa terus bersama dalam waktu yang sangat lama.</p>
+        <p class="section-text">Semoga kita terus tumbuh bersama, saling memeluk mimpi, dan membangun cerita manis yang tak pernah pudar.</p>
       </div>
       <div style="margin-top: 18px; display:flex; justify-content:center;"><button class="button-heart" id="nextToSpecial">Next</button></div>
     </div>
@@ -783,7 +733,7 @@
   <section class="page" id="specialPage">
     <div class="hero card glass-panel">
       <div class="section-title">Ucapan Khusus</div>
-      <p class="section-text">Aku bersyukur dipertemukan denganmu. Terima kasih sudah bertahan sejauh ini bersamaku. Maaf jika selama ini aku masih memiliki banyak kekurangan dan sering membuatmu kesal. Aku akan terus belajar menjadi pasangan yang lebih baik untukmu. ❤️</p>
+      <p class="section-text">Sayang, kamu adalah alasan aku ingin jadi versi terbaik setiap hari. Terima kasih sudah sabar dan mengerti. Maaf kalau kadang aku kurang sempurna — cintaku padamu selalu tulus. ❤️</p>
       <div style="margin-top: 18px; display:flex; justify-content:center;"><button class="button-heart" id="nextToRomantic">Lanjut ke Pesan Romantis</button></div>
     </div>
   </section>
@@ -791,7 +741,7 @@
   <section class="page" id="romanticPage">
     <div class="hero card glass-panel romantic-card glow-outline">
       <div class="section-title">Pesan Romantis untukmu</div>
-      <p class="section-text warm-text">Inilah kata-kata yang kurangkai khusus untukmu, Zaincucayang. Semoga hatimu terasa hangat setiap kali membacanya.</p>
+      <p class="section-text warm-text">Ini adalah pesan kecil dari hatiku untuk kamu, Zaincucayang. Semoga setiap kata membawa kehangatan, pelukan jarak jauh, dan rasa gemas yang manis.</p>
       <div class="warm-words">
         <p>Kamu adalah pelangi paling lembut di pagi hariku, alasan setiap senyumku, dan teman terbaik dalam setiap cerita.</p>
         <p>Setiap detik bersamamu membuatku percaya bahwa cinta yang tulus selalu punya cara untuk membuat hidup lebih indah.</p>
@@ -804,8 +754,8 @@
   <section class="page" id="closingPage">
     <div class="hero card glass-panel romantic-card glow-outline">
       <div class="section-title">Penutup</div>
-      <p class="section-text">Terima kasih telah menjadi bagian terindah dalam hidupku. Happy 6 Month Anniversary, Zaincucayang. Aku cinta kamu lebih dari kata-kata, dan aku berjanji akan selalu jaga setiap momen manis kita bersama.</p>
-      <p class="section-text">Semoga setiap hari kita selalu dipenuhi kasih sayang, tawa hangat, dan pelukan yang membuat hati kita semakin erat.</p>
+      <p class="section-text">Terima kasih telah menjadi cerita paling indah dan gemas dalam hidupku. Happy 6 Month Anniversary, Zaincucayang. Aku sayang kamu lebih dari kata-kata, dan aku berjanji akan selalu menjaga setiap momen manis kita bersama.</p>
+      <p class="section-text">Semoga setiap hari kita selalu dipenuhi kasih sayang, tawa lucu, dan pelukan hangat yang membuat hati ini berdebar bahagia.</p>
       <p class="footer-note">Dari: <strong>Putri Pretty</strong></p>
       <div style="margin-top: 18px; display:flex; justify-content:center;"><button class="button-heart" id="restartButton">Buka Lagi</button></div>
     </div>
