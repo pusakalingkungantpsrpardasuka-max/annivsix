@@ -282,7 +282,7 @@
       color: #9b3667;
       text-shadow: 0 6px 20px rgba(255, 202, 233, 0.55);
       background: linear-gradient(135deg, #ff8ac7, #ffd4ea);
-      -webkit-background-p: text;
+      
       color: transparent;
       animation: shimmer 2.8s ease-in-out infinite;
     }
@@ -744,29 +744,9 @@
       </div>
       <div class="slideshow" id="slideshow">
         <div class="slide active empty">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Upload foto 1" />
-          <div class="slide-overlay">Unggah foto pertamamu di sini, Zain.</div>
-          <div class="slide-caption">Foto 1</div>
-        </div>
-        <div class="slide empty">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Upload foto 2" />
-          <div class="slide-overlay">Unggah kenangan kedua kita.</div>
-          <div class="slide-caption">Foto 2</div>
-        </div>
-        <div class="slide empty">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Upload foto 3" />
-          <div class="slide-overlay">Kesan manis akan muncul di sini.</div>
-          <div class="slide-caption">Foto 3</div>
-        </div>
-        <div class="slide empty">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Upload foto 4" />
-          <div class="slide-overlay">Slide ini siap berisi memori kita.</div>
-          <div class="slide-caption">Foto 4</div>
-        </div>
-        <div class="slide empty">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Upload foto 5" />
-          <div class="slide-overlay">Upload lengkap untuk nostalgia super estetik.</div>
-          <div class="slide-caption">Foto 5</div>
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Upload foto" />
+          <div class="slide-overlay">Unggah foto kenangan spesial kita di sini, Zain.</div>
+          <div class="slide-caption">Kenangan Kita</div>
         </div>
       </div>
       <div class="progress-dots" id="dotContainer"></div>
@@ -832,11 +812,7 @@
     const slides = Array.from(document.querySelectorAll('.slide'));
     const dotContainer = document.getElementById('dotContainer');
     const slideTexts = [
-      'Momen manis bersama',
-      'Senja penuh cinta',
-      'Tawa yang tak terlupakan',
-      'Pelukan hangat',
-      'Harapan baru bersama'
+      'Momen manis bersama'
     ];
     let slideIndex = 0;
     let typingDone = false;
@@ -1003,31 +979,31 @@
     choosePhotosButton.addEventListener('click', () => photoInput.click());
 
     photoInput.addEventListener('change', (event) => {
-      const files = Array.from(event.target.files).slice(0, 8);
-      if (!files.length) return;
-      const uploadedPhotos = [];
-      slides.forEach((slide, idx) => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const photoData = e.target.result;
+        const slide = slides[0];
         const img = slide.querySelector('img');
         const overlay = slide.querySelector('.slide-overlay');
-        if (files[idx]) {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            img.src = e.target.result;
-            img.alt = `Foto kenangan ${idx + 1} bersama Zain`;
-            slide.classList.remove('empty');
-            overlay.textContent = `Foto kennangan ${idx + 1} berwarna cinta.`;
-            uploadedPhotos.push(e.target.result);
-            savePhotos(uploadedPhotos);
-          };
-          reader.readAsDataURL(files[idx]);
-        }
-      });
-      surpriseBubble.textContent = 'Zain, setiap foto yang kamu unggah akan tersimpan secara spesial di sini. Aku sudah menunggu setiap momen kita 💕';
+        
+        img.src = photoData;
+        img.alt = 'Foto kenangan spesial bersama Zain';
+        slide.classList.remove('empty');
+        overlay.textContent = 'Foto kenangan spesial yang aku simpan untuk kita.';
+        
+        // Simpan foto otomatis ke localStorage
+        savePhotos(photoData);
+      };
+      reader.readAsDataURL(file);
+      
+      surpriseBubble.textContent = 'Zain, foto kenangan spesial kita sudah tersimpan otomatis di browser ini. Selamanya ada di hati dan memori 💕';
     });
 
-    function savePhotos(photos) {
+    function savePhotos(photo) {
       try {
-        localStorage.setItem('annivsixPhotos', JSON.stringify(photos));
+        localStorage.setItem('annivsixPhoto', photo);
       } catch (err) {
         console.warn('Tidak bisa menyimpan foto ke localStorage.', err);
       }
@@ -1035,16 +1011,14 @@
 
     function loadSavedPhotos() {
       try {
-        const saved = JSON.parse(localStorage.getItem('annivsixPhotos') || '[]');
-        if (!saved.length) return;
-        saved.forEach((photo, idx) => {
-          const slide = slides[idx];
-          const img = slide.querySelector('img');
-          const overlay = slide.querySelector('.slide-overlay');
-          img.src = photo;
-          slide.classList.remove('empty');
-          if (overlay) overlay.textContent = `Foto kenangan ${idx + 1} berwarna cinta.`;
-        });
+        const saved = localStorage.getItem('annivsixPhoto');
+        if (!saved) return;
+        const slide = slides[0];
+        const img = slide.querySelector('img');
+        const overlay = slide.querySelector('.slide-overlay');
+        img.src = saved;
+        slide.classList.remove('empty');
+        if (overlay) overlay.textContent = 'Foto kenangan spesial yang aku simpan untuk kita.';
       } catch (err) {
         console.warn('Gagal membaca foto tersimpan.', err);
       }
@@ -1053,10 +1027,7 @@
     function startSlideShow() {
       createDots();
       updateSlide(0);
-      setInterval(() => {
-        const next = (slideIndex + 1) % slides.length;
-        updateSlide(next);
-      }, 6000);
+      // Tidak ada auto-rotation karena hanya 1 slide
     }
 
     function createFloatingHearts() {
