@@ -694,10 +694,12 @@
   <div class="audio-panel hidden" id="audioPanel">
     <div class="music-icon">♪</div>
     <div>
-      <div style="font-size:0.9rem;font-weight:700;color:#7b3b67;">Anything You Want</div>
-      <div style="font-size:0.78rem;color:#914d79;">Latar musik romantic</div>
+      <div style="font-size:0.9rem;font-weight:700;color:#7b3b67;" id="audioTrackName">Anything You Want</div>
+      <div style="font-size:0.78rem;color:#914d79;" id="audioTrackNote">Latar musik romantic</div>
     </div>
     <button id="musicToggle">Play</button>
+    <button id="uploadAudioButton" style="background:#f9a0d1;">Unggah Lagu</button>
+    <input type="file" id="audioFileInput" accept="audio/*" style="display:none;" />
   </div>
 
   <audio id="bgMusic" loop preload="auto">
@@ -820,6 +822,10 @@
     const audioPanel = document.getElementById('audioPanel');
     const bgMusic = document.getElementById('bgMusic');
     const musicToggle = document.getElementById('musicToggle');
+    const uploadAudioButton = document.getElementById('uploadAudioButton');
+    const audioFileInput = document.getElementById('audioFileInput');
+    const audioTrackName = document.getElementById('audioTrackName');
+    const audioTrackNote = document.getElementById('audioTrackNote');
     const nameTyping = document.getElementById('nameTyping');
     const cardText = document.getElementById('cardText');
     const stage = document.querySelector('.stage');
@@ -885,6 +891,23 @@
       bgMusic.currentTime = 0;
     });
 
+    uploadAudioButton.addEventListener('click', () => audioFileInput.click());
+
+    audioFileInput.addEventListener('change', (event) => {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const audioData = e.target.result;
+        bgMusic.src = audioData;
+        audioTrackName.textContent = file.name;
+        audioTrackNote.textContent = 'Lagu tersimpan otomatis di browser ini.';
+        saveAudio(audioData, file.name);
+        playMusic();
+      };
+      reader.readAsDataURL(file);
+    });
+
     musicToggle.addEventListener('click', () => {
       if (bgMusic.paused) {
         playMusic();
@@ -899,6 +922,26 @@
         // Autoplay may be blocked; keep the button visible
       });
       musicToggle.textContent = 'Pause';
+    }
+
+    function saveAudio(dataUrl, name) {
+      try {
+        localStorage.setItem('annivsixAudio', JSON.stringify({src: dataUrl, name}));
+      } catch (err) {
+        console.warn('Tidak bisa menyimpan audio di localStorage.', err);
+      }
+    }
+
+    function loadSavedAudio() {
+      try {
+        const stored = JSON.parse(localStorage.getItem('annivsixAudio') || 'null');
+        if (!stored || !stored.src) return;
+        bgMusic.src = stored.src;
+        audioTrackName.textContent = stored.name || 'Lagu spesial';
+        audioTrackNote.textContent = 'Lagu tersimpan otomatis di browser ini.';
+      } catch (err) {
+        console.warn('Gagal memuat audio tersimpan.', err);
+      }
     }
 
     function fadeText(element, text, delay=30) {
@@ -1046,6 +1089,7 @@
     function initializeSite() {
       createFloatingHearts();
       loadSavedPhotos();
+      loadSavedAudio();
       showPage(0);
     }
 
