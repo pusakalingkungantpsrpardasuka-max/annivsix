@@ -485,20 +485,58 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: transform 0.9s ease;
+    }
+
+    .slide.empty img {
+      object-fit: contain;
+      filter: contrast(0.95) saturate(1.2);
+    }
+
+    .slide-overlay {
+      position: absolute;
+      inset: 18px 18px 62px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      text-align: center;
+      padding: 18px;
+      color: #6f3c5f;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      background: rgba(255, 246, 250, 0.65);
+      border-radius: 24px;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(10px);
     }
 
     .slide-caption {
       position: absolute;
       bottom: 22px;
       left: 22px;
-      color: #fff;
-      text-shadow: 0 8px 24px rgba(0,0,0,0.35);
-      font-weight: 600;
+      color: #622e4c;
+      text-shadow: 0 8px 24px rgba(255,255,255,0.9);
+      font-weight: 700;
       font-size: 1rem;
       backdrop-filter: blur(10px);
-      background: rgba(0,0,0,0.18);
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 223, 236, 0.8);
       border-radius: 18px;
       padding: 10px 16px;
+    }
+
+    .surprise-bubble {
+      margin: 18px auto 0;
+      max-width: 640px;
+      padding: 16px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(255, 218, 237, 0.96), rgba(255, 248, 250, 0.95));
+      border: 1px solid rgba(255, 182, 210, 0.9);
+      color: #9f4c7d;
+      font-size: 0.98rem;
+      box-shadow: 0 22px 50px rgba(255, 183, 211, 0.16);
+      animation: floatUp 5.4s ease-in-out infinite;
+      text-align: center;
     }
 
     .progress-dots {
@@ -703,13 +741,34 @@
         <input type="file" id="photoInput" accept="image/*" multiple style="display:none;" />
       </div>
       <div class="slideshow" id="slideshow">
-        <div class="slide active"><img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?auto=format&fit=crop&w=900&q=80" alt="Kenangan 1" /><div class="slide-caption">Momen manis bersama</div></div>
-        <div class="slide"><img src="https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=900&q=80" alt="Kenangan 2" /><div class="slide-caption">Senja penuh cinta</div></div>
-        <div class="slide"><img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80" alt="Kenangan 3" /><div class="slide-caption">Tawa yang tak terlupakan</div></div>
-        <div class="slide"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="Kenangan 4" /><div class="slide-caption">Pelukan hangat</div></div>
-        <div class="slide"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80" alt="Kenangan 5" /><div class="slide-caption">Harapan baru bersama</div></div>
+        <div class="slide active empty">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Upload foto 1" />
+          <div class="slide-overlay">Unggah foto pertamamu di sini, Zain.</div>
+          <div class="slide-caption">Foto 1</div>
+        </div>
+        <div class="slide empty">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Upload foto 2" />
+          <div class="slide-overlay">Unggah kenangan kedua kita.</div>
+          <div class="slide-caption">Foto 2</div>
+        </div>
+        <div class="slide empty">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Upload foto 3" />
+          <div class="slide-overlay">Kesan manis akan muncul di sini.</div>
+          <div class="slide-caption">Foto 3</div>
+        </div>
+        <div class="slide empty">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Upload foto 4" />
+          <div class="slide-overlay">Slide ini siap berisi memori kita.</div>
+          <div class="slide-caption">Foto 4</div>
+        </div>
+        <div class="slide empty">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Upload foto 5" />
+          <div class="slide-overlay">Upload lengkap untuk nostalgia super estetik.</div>
+          <div class="slide-caption">Foto 5</div>
+        </div>
       </div>
       <div class="progress-dots" id="dotContainer"></div>
+      <div class="surprise-bubble" id="surpriseBubble">Kejutan kecil untuk Zain: kamu selalu jadi aura paling berkilau di hatiku ✨</div>
       <div style="margin-top: 20px; display:flex; justify-content:center;"><button class="button-heart" id="nextToMessage">Next</button></div>
     </div>
   </section>
@@ -896,23 +955,57 @@
 
     const photoInput = document.getElementById('photoInput');
     const choosePhotosButton = document.getElementById('choosePhotosButton');
+    const surpriseBubble = document.getElementById('surpriseBubble');
 
     choosePhotosButton.addEventListener('click', () => photoInput.click());
 
     photoInput.addEventListener('change', (event) => {
       const files = Array.from(event.target.files).slice(0, 8);
       if (!files.length) return;
+      const uploadedPhotos = [];
       slides.forEach((slide, idx) => {
         const img = slide.querySelector('img');
+        const overlay = slide.querySelector('.slide-overlay');
         if (files[idx]) {
           const reader = new FileReader();
           reader.onload = (e) => {
             img.src = e.target.result;
+            img.alt = `Foto kenangan ${idx + 1} bersama Zain`;
+            slide.classList.remove('empty');
+            overlay.textContent = `Foto kennangan ${idx + 1} berwarna cinta.`;
+            uploadedPhotos.push(e.target.result);
+            savePhotos(uploadedPhotos);
           };
           reader.readAsDataURL(files[idx]);
         }
       });
+      surpriseBubble.textContent = 'Zain, setiap foto yang kamu unggah akan tersimpan secara spesial di sini. Aku sudah menunggu setiap momen kita 💕';
     });
+
+    function savePhotos(photos) {
+      try {
+        localStorage.setItem('annivsixPhotos', JSON.stringify(photos));
+      } catch (err) {
+        console.warn('Tidak bisa menyimpan foto ke localStorage.', err);
+      }
+    }
+
+    function loadSavedPhotos() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('annivsixPhotos') || '[]');
+        if (!saved.length) return;
+        saved.forEach((photo, idx) => {
+          const slide = slides[idx];
+          const img = slide.querySelector('img');
+          const overlay = slide.querySelector('.slide-overlay');
+          img.src = photo;
+          slide.classList.remove('empty');
+          if (overlay) overlay.textContent = `Foto kenangan ${idx + 1} berwarna cinta.`;
+        });
+      } catch (err) {
+        console.warn('Gagal membaca foto tersimpan.', err);
+      }
+    }
 
     function startSlideShow() {
       createDots();
@@ -926,16 +1019,37 @@
     function createFloatingHearts() {
       for (let i = 0; i < heartCount; i++) {
         const heart = document.createElement('div');
-        heart.className = Math.random() > 0.45 ? 'heart-fall' : 'sparkle-fall';
+        heart.className = Math.random() > 0.35 ? 'heart-fall' : 'sparkle-fall';
         heart.style.left = Math.random() * 100 + 'vw';
         heart.style.animationDuration = `${5 + Math.random() * 5}s`;
         heart.style.opacity = `${0.5 + Math.random() * 0.6}`;
         stage.appendChild(heart);
       }
+      for (let i = 0; i < 8; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'flower-petal';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = `${6 + Math.random() * 6}s`;
+        petal.style.opacity = `${0.55 + Math.random() * 0.45}`;
+        stage.appendChild(petal);
+      }
+      for (let i = 0; i < 6; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle-star';
+        sparkle.style.left = Math.random() * 100 + 'vw';
+        sparkle.style.animationDuration = `${4 + Math.random() * 5}s`;
+        sparkle.style.opacity = `${0.45 + Math.random() * 0.55}`;
+        stage.appendChild(sparkle);
+      }
     }
 
-    createFloatingHearts();
-    showPage(0);
+    function initializeSite() {
+      createFloatingHearts();
+      loadSavedPhotos();
+      showPage(0);
+    }
+
+    initializeSite();
   </script>
 </body>
 </html>
